@@ -5,8 +5,6 @@ import java.io.Serializable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.dmaia.seguradoraveiculosapi.entity.dto.ClienteDTO;
-
 @Document(collection = "cliente")
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -19,25 +17,17 @@ public class Cliente implements Serializable {
 	private String uf;
 
 	public Cliente() {
-		
+
 	}
 
-	public Cliente(String id, String nome, String cpf, String cidade, String uf) {		
+	public Cliente(String id, String nome, String cpf, String cidade, String uf) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.cidade = cidade;
 		this.uf = uf;
 	}
-	
-	
-	public Cliente create (ClienteDTO dto) {
-		Cliente cliente = new Cliente(dto.getId(), dto.getNome(), dto.getCpf(), dto.getCidade(), dto.getUf());
-		return cliente;
-	}
 
-	
-	
 	public String getId() {
 		return id;
 	}
