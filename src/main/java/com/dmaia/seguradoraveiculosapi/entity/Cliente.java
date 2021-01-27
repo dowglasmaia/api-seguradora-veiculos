@@ -5,13 +5,15 @@ import java.io.Serializable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.dmaia.seguradoraveiculosapi.entity.utils.UnicoCPF;
+
 @Document(collection = "cliente")
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String id;
-	private String nome;
+	private String nome;	
 	private String cpf;
 	private String cidade;
 	private String uf;

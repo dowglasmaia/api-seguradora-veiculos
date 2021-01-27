@@ -3,12 +3,14 @@ package com.dmaia.seguradoraveiculosapi.entity.dto;
 import java.io.Serializable;
 
 import com.dmaia.seguradoraveiculosapi.entity.Cliente;
+import com.dmaia.seguradoraveiculosapi.entity.utils.UnicoCPF;
 
 public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String id;
 	private String nome;
+	@UnicoCPF(message = "CPF já cadastrado em nossa Base de dados.")
 	private String cpf;
 	private String cidade;
 	private String uf;

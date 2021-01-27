@@ -22,7 +22,7 @@ public class ClienteServices extends CrudServices<Cliente, String> implements IC
 	}
 
 	@Override
-	public Cliente createClienteFromToDTO(ClienteDTO dto) {
+	public Cliente createClienteFromToDTO(ClienteDTO dto) {		
 		Cliente cliente = new Cliente(
 				dto.getId(), 
 				dto.getNome(), 
@@ -37,7 +37,10 @@ public class ClienteServices extends CrudServices<Cliente, String> implements IC
 			cliente.setNome(dto.getNome());
 			cliente.setCidade(dto.getCidade());
 			cliente.setUf(dto.getUf());
+			
 		return cliente;
 	}
+	
+	
 
 }

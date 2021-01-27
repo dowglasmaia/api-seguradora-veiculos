@@ -5,6 +5,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.dmaia.seguradoraveiculosapi.entity.Cliente;
 import com.dmaia.seguradoraveiculosapi.entity.dto.ClienteDTO;
 import com.dmaia.seguradoraveiculosapi.entity.dto.ClienteUpdateDTO;
+import com.dmaia.seguradoraveiculosapi.entity.utils.ValidationCPF;
 import com.dmaia.seguradoraveiculosapi.services.IClienteService;
 
 @RestController
@@ -52,7 +55,10 @@ public class ClienteController {
 
 	@PostMapping(produces = { "application/json", "application/xml" },
 				 consumes = {"application/json", "application/xml" })
-	public ResponseEntity<ClienteDTO> create(@RequestBody ClienteDTO dto) {		
+	public ResponseEntity<ClienteDTO> create(@Valid @RequestBody ClienteDTO dto) {	
+		
+		ValidationCPF.validaCpfCliente(dto.getCpf());
+		
 		Cliente entity =clienteService.createClienteFromToDTO(dto);		
 		clienteService.save(entity);		
 		
