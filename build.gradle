@@ -12,6 +12,13 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
 repositories {
 	mavenCentral()
 }
@@ -33,6 +40,7 @@ dependencies {
 	}
 	testImplementation 'org.springframework.security:spring-security-test'
 }
+
 
 test {
 	useJUnitPlatform()
