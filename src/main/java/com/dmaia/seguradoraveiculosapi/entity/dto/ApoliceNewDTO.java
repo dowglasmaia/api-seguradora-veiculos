@@ -3,13 +3,25 @@ package com.dmaia.seguradoraveiculosapi.entity.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
+
 public class ApoliceNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@DateTimeFormat(iso= ISO.DATE)
 	private LocalDate inicioVigencia;
+	
+	@DateTimeFormat(iso= ISO.DATE)
 	private LocalDate fimVigencia;
+	
 	private String placaVeiculo;
+	
+	@NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00")
 	private Double valor;
+	
 	private String idCliente;
 
 	public ApoliceNewDTO() {

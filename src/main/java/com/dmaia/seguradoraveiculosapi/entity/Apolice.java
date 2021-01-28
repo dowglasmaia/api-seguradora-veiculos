@@ -5,6 +5,10 @@ import java.time.LocalDate;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 
 @Document(collection = "apolice")
@@ -13,9 +17,16 @@ public class Apolice implements Serializable {
 
 	@Id
 	private String numero;
+	
+	@DateTimeFormat(iso= ISO.DATE)
 	private LocalDate inicioVigencia;
+	
+	@DateTimeFormat(iso= ISO.DATE)
 	private LocalDate fimVigencia;
+	
 	private String placaVeiculo;
+	
+	@NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00")
 	private Double valor;
 
 	private Cliente cliente;

@@ -28,12 +28,12 @@ public class SeguradoraVeiculosApiApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Cliente cliente = new Cliente(null, "Maia", "56461209930", "Goiania", "GO");
+		/*Cliente cliente = new Cliente(null, "Maia", "56461209930", "Goiania", "GO");
 		clienteRepository.save(cliente);
 		
 		
 		Apolice ap1 = new Apolice(null, LocalDate.now(), LocalDate.now(), "SDC-68A98", 200.2, cliente);
-		apoliceRepository.save(ap1);
+		apoliceRepository.save(ap1);*/
 		
 		
 		
