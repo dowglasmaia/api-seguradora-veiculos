@@ -33,11 +33,7 @@ public class ApoliceDTO implements Serializable {
 	
 	private int diasAvencer;
 	
-	public ApoliceDTO() {
-		
-		
-
-	}
+	public ApoliceDTO() {	}
 
 	public ApoliceDTO(Apolice apolice) {
 		this.numero = apolice.getNumero();

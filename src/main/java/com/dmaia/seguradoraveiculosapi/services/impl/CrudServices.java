@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Component;
 
+import com.dmaia.seguradoraveiculosapi.exceptions.ObjectNotFoundException;
+import com.dmaia.seguradoraveiculosapi.exceptions.OpoerationErrorException;
 import com.dmaia.seguradoraveiculosapi.services.ICrudServices;
 
 @Component
@@ -15,7 +17,6 @@ public abstract class CrudServices<T, PK extends Serializable> implements ICrudS
 
 	private MongoRepository<T, PK> repository;
 
-	
 	@Autowired
 	public CrudServices(MongoRepository<T, PK> repo) {
 		this.repository = repo;
@@ -29,7 +30,7 @@ public abstract class CrudServices<T, PK extends Serializable> implements ICrudS
 	@Override
 	public T findById(PK id) {
 		return repository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Recurso não encontrado para o ID: " + id));
+				.orElseThrow(() -> new ObjectNotFoundException("Recurso não encontrado para o ID: " + id));
 	}
 
 	@Override
@@ -37,7 +38,7 @@ public abstract class CrudServices<T, PK extends Serializable> implements ICrudS
 		try {
 			return repository.save(entity);
 		} catch (Exception e) {
-			throw new RuntimeException("Falha ao tentar salvar recurso");
+			throw new OpoerationErrorException("Falha ao tentar salvar recurso");
 		}
 
 	}
@@ -47,7 +48,7 @@ public abstract class CrudServices<T, PK extends Serializable> implements ICrudS
 		try {
 			return repository.save(entity);
 		} catch (Exception e) {
-			throw new RuntimeException("Falha ao tentar atualizar dados do recurso");
+			throw new OpoerationErrorException("Falha ao tentar atualizar dados do recurso");
 		}
 	}
 
@@ -57,7 +58,7 @@ public abstract class CrudServices<T, PK extends Serializable> implements ICrudS
 			findById(id);
 			repository.deleteById(id);
 		} catch (Exception e) {
-			throw new RuntimeException(e.getMessage());
+			throw new OpoerationErrorException(e.getMessage());
 		}
 	}
 }

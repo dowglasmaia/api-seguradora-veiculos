@@ -1,5 +1,7 @@
 package com.dmaia.seguradoraveiculosapi.entity.utils;
 
+import com.dmaia.seguradoraveiculosapi.exceptions.OpoerationErrorException;
+
 public class ValidationCPF {
 
 	private static final int[] weightSsn = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -26,7 +28,7 @@ public class ValidationCPF {
 	
 	public static void validaCpfCliente(String cpf) {
 		if (!isValidCPF(cpf)) {
-			throw new RuntimeException("CPF Inválido");
+			throw new OpoerationErrorException("CPF Inválido");
 		}
 	}
 

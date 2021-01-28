@@ -7,6 +7,7 @@ import com.dmaia.seguradoraveiculosapi.entity.Apolice;
 import com.dmaia.seguradoraveiculosapi.entity.Cliente;
 import com.dmaia.seguradoraveiculosapi.entity.dto.ApoliceNewDTO;
 import com.dmaia.seguradoraveiculosapi.entity.dto.ApoliceUpdateDTO;
+import com.dmaia.seguradoraveiculosapi.exceptions.ObjectNotFoundException;
 import com.dmaia.seguradoraveiculosapi.repository.ApoliceRepository;
 import com.dmaia.seguradoraveiculosapi.repository.ClienteRepository;
 import com.dmaia.seguradoraveiculosapi.services.IApoliceService;
@@ -53,7 +54,7 @@ public class ApoliceServices extends CrudServices<Apolice, String> implements IA
 	@Override
 	public Apolice findByNumero(String numero) {		
 		return repository.findByNumero(numero)
-				.orElseThrow( () -> new RuntimeException(""));
+				.orElseThrow( () -> new ObjectNotFoundException("Apolice não encontrada para o número: " +numero));
 	}
 
 	
