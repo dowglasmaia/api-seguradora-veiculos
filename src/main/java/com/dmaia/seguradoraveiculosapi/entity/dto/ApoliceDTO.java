@@ -2,6 +2,8 @@ package com.dmaia.seguradoraveiculosapi.entity.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -14,28 +16,29 @@ import com.dmaia.seguradoraveiculosapi.entity.Cliente;
 public class ApoliceDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String numero;	
-	
-	@DateTimeFormat(iso= ISO.DATE)
+	private String numero;
+
+	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate inicioVigencia;
-	
-	@DateTimeFormat(iso= ISO.DATE)
+
+	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate fimVigencia;
-	
+
 	private String placaVeiculo;
-	
+
 	@NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00")
 	private Double valor;
-	
+
 	private Cliente cliente;
 
 	private Boolean isVencido;
-	
-	private int diasAvencer;
-	
-	private int diasVencidos;
-	
-	public ApoliceDTO() {	}
+
+	private long diasAvencer;
+
+	private long diasVencidos;
+
+	public ApoliceDTO() {
+	}
 
 	public ApoliceDTO(Apolice apolice) {
 		this.numero = apolice.getNumero();
@@ -44,18 +47,43 @@ public class ApoliceDTO implements Serializable {
 		this.placaVeiculo = apolice.getPlacaVeiculo();
 		this.valor = apolice.getValor();
 		this.cliente = apolice.getCliente();
-	
-		this.isVencido = (LocalDate.now().isAfter(fimVigencia) || LocalDate.now().equals(fimVigencia) )   ?  true : false ;	
-		
-		this.diasAvencer = (LocalDate.now().isAfter(fimVigencia) || LocalDate.now().equals(fimVigencia) ) 
-				? 0 
-				: fimVigencia.getDayOfMonth() - LocalDate.now().getDayOfMonth();
-		
-		this.diasVencidos = (LocalDate.now().isAfter(fimVigencia) || LocalDate.now().equals(fimVigencia) ) 
-				? LocalDate.now().getDayOfMonth() - fimVigencia.getDayOfMonth()
-				: 0 ;
+
+		this.isVencido = (LocalDate.now().isAfter(fimVigencia) || LocalDate.now().equals(fimVigencia)) ? true : false;
+
+		this.diasAvencer = retornaTotalDeDiasAvencerApolice();
+
+		this.diasVencidos = retornaTotalDeDiasVencidosApolice();
 	}
-	
+
+	private long retornaTotalDeDiasAvencerApolice() {
+		LocalDate diaAtual = LocalDate.now();
+		long qtdaDiasAvencer = 0;
+
+		if (diaAtual.isBefore(fimVigencia)) {
+			Date hoje = Date.from(diaAtual.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			Date venc = Date.from(fimVigencia.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+			qtdaDiasAvencer = (venc.getTime() - hoje.getTime()) / 86400000L;
+
+			return qtdaDiasAvencer;
+		}
+		return 0;
+	}
+
+	private long retornaTotalDeDiasVencidosApolice() {
+		LocalDate diaAtual = LocalDate.now();
+		long qtdaDiasVencidos = 0;
+
+		if (diaAtual.isAfter(fimVigencia)) {
+			Date hoje = Date.from(diaAtual.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			Date venc = Date.from(fimVigencia.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+			qtdaDiasVencidos = (hoje.getTime() - venc.getTime()) / 86400000L;
+
+			return qtdaDiasVencidos;
+		}
+		return 0;
+	}
 
 	public String getNumero() {
 		return numero;
@@ -109,13 +137,12 @@ public class ApoliceDTO implements Serializable {
 		return isVencido;
 	}
 
-	public int getDiasAvencer() {
+	public long getDiasAvencer() {
 		return diasAvencer;
 	}
-	
-	public int getDiasVencidos() {
+
+	public long getDiasVencidos() {
 		return diasVencidos;
 	}
-	
 
 }
