@@ -33,6 +33,8 @@ public class ApoliceDTO implements Serializable {
 	
 	private int diasAvencer;
 	
+	private int diasVencidos;
+	
 	public ApoliceDTO() {	}
 
 	public ApoliceDTO(Apolice apolice) {
@@ -46,8 +48,12 @@ public class ApoliceDTO implements Serializable {
 		this.isVencido = (LocalDate.now().isAfter(fimVigencia) || LocalDate.now().equals(fimVigencia) )   ?  true : false ;	
 		
 		this.diasAvencer = (LocalDate.now().isAfter(fimVigencia) || LocalDate.now().equals(fimVigencia) ) 
-						? 0 
-						: fimVigencia.minusDays(inicioVigencia.getDayOfMonth()).getDayOfMonth() ;		
+				? 0 
+				: fimVigencia.getDayOfMonth() - LocalDate.now().getDayOfMonth();
+		
+		this.diasVencidos = (LocalDate.now().isAfter(fimVigencia) || LocalDate.now().equals(fimVigencia) ) 
+				? LocalDate.now().getDayOfMonth() - fimVigencia.getDayOfMonth()
+				: 0 ;
 	}
 	
 
@@ -107,6 +113,9 @@ public class ApoliceDTO implements Serializable {
 		return diasAvencer;
 	}
 	
+	public int getDiasVencidos() {
+		return diasVencidos;
+	}
 	
 
 }
