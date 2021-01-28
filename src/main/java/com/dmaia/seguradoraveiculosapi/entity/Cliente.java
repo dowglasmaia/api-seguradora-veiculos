@@ -1,11 +1,12 @@
 package com.dmaia.seguradoraveiculosapi.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.dmaia.seguradoraveiculosapi.entity.utils.UnicoCPF;
 
 @Document(collection = "cliente")
 public class Cliente implements Serializable {
@@ -13,7 +14,7 @@ public class Cliente implements Serializable {
 
 	@Id
 	private String id;
-	private String nome;	
+	private String nome;
 	private String cpf;
 	private String cidade;
 	private String uf;

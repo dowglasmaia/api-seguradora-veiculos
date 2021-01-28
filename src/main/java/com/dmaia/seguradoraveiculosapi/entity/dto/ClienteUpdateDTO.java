@@ -2,12 +2,20 @@ package com.dmaia.seguradoraveiculosapi.entity.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
 public class ClienteUpdateDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String id;
-	private String nome;	
+	
+	@NotEmpty(message = "O Campo Nome é Obrigatório")
+	private String nome;
+	
+	@NotEmpty(message = "O Campo Cidade é Obrigatório")
 	private String cidade;
+	
+	@NotEmpty(message = "O Campo UF é Obrigatório")
 	private String uf;
 
 	public ClienteUpdateDTO() {

@@ -46,7 +46,7 @@ public class ClienteController {
 	}
 	
 	@GetMapping(produces = { "application/json", "application/xml" })
-	public ResponseEntity<List<ClienteDTO>> getAll() {
+	public ResponseEntity<List<ClienteDTO>> findAll() {
 		List<Cliente> list = clienteService.findAll();		
 		List<ClienteDTO> result = list.stream().map(c -> new ClienteDTO(c)).collect(Collectors.toList());
 		
@@ -69,7 +69,7 @@ public class ClienteController {
 	
 	@PutMapping(value = "/{id}", produces = { "application/json", "application/xml" },
  			    consumes = {"application/json", "application/xml"})
-	public ResponseEntity<ClienteDTO> update(@PathVariable("id") String id,	 @RequestBody ClienteUpdateDTO dto) {
+	public ResponseEntity<ClienteDTO> update(@PathVariable("id") String id, @Valid  @RequestBody ClienteUpdateDTO dto) {
 		Cliente entity  = clienteService.findById(id);		
 		entity = clienteService.updateClienteFromToDTO(entity,dto);	
 		

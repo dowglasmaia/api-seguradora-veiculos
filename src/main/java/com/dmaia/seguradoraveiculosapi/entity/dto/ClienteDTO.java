@@ -2,6 +2,8 @@ package com.dmaia.seguradoraveiculosapi.entity.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
 import com.dmaia.seguradoraveiculosapi.entity.Cliente;
 import com.dmaia.seguradoraveiculosapi.entity.utils.UnicoCPF;
 
@@ -9,10 +11,17 @@ public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String id;
+	
+	@NotEmpty(message = "O Campo Nome é Obrigatório")
 	private String nome;
+	
 	@UnicoCPF(message = "CPF já cadastrado em nossa Base de dados.")
 	private String cpf;
+	
+	@NotEmpty(message = "O Campo Cidade é Obrigatório")
 	private String cidade;
+	
+	@NotEmpty(message = "O Campo UF é Obrigatório")
 	private String uf;
 
 	public ClienteDTO() {

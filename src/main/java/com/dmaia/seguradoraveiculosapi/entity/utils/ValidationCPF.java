@@ -25,7 +25,7 @@ public class ValidationCPF {
 
 	
 	public static void validaCpfCliente(String cpf) {
-		if (!ValidationCPF.isValidCPF(cpf)) {
+		if (!isValidCPF(cpf)) {
 			throw new RuntimeException("CPF Inválido");
 		}
 	}
