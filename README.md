@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/dowglasmaia/api-seguradora-veiculos.svg?branch=main)](https://travis-ci.com/github/dowglasmaia/api-seguradora-veiculos)
+
 ## API - SEGURADORA DE VEICULOS
 
 ### Tecnologias usadas no desenvolvimento:
